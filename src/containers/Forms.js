@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import Header from '../components/Header'
 import FormsList from '../components/FormsList'
+import Default from '../components/Default'
 import { connect } from 'react-redux'
 import { addForm, deleteForm } from '../actions/forms'
 
-import { IconButton, Typography, Button, Tooltip} from 'material-ui'
-import { Card, CardMedia, CardContent } from 'material-ui'
+import { Button, Tooltip } from 'material-ui'
 import AddIcon from 'material-ui-icons/Add'
-
 
 const styles = {
   button: {
@@ -20,20 +19,24 @@ const styles = {
 class Forms extends Component {
   addForm = id => {
     this.props.addForm(id)
+    this.props.history.push(`/forms/edit/${id}`)
 }
 
   render() {
-    console.log(this.props.forms)
     return (
       <div>
         <Header />
-        <FormsList forms={this.props.forms} deleteForm={this.props.deleteForm} />
+        {
+          (this.props.forms.length > 0) ?
+            <FormsList forms={this.props.forms} deleteForm={this.props.deleteForm} />
+            : <Default />
+        }
         <Tooltip title="Create form" placement="top">
           <Button
             variant="fab"
             color="secondary"
             style={styles.button}
-            onClick={this.addForm}>
+            onClick={this.addForm.bind({}, Date.now())}>
             <AddIcon />
           </Button>
         </Tooltip>
@@ -45,14 +48,14 @@ class Forms extends Component {
 
 const mapStateToProps = state => {
   return {
-    forms: state.formsReducer
+    forms: state.forms
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
      addForm: id => {
-      dispatch(addForm(Date.now()))
+      dispatch(addForm(id))
     },
     deleteForm: id => {
       dispatch(deleteForm(id))

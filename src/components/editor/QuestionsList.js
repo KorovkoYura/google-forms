@@ -1,20 +1,28 @@
 import React, { Component } from 'react'
-import FormItem from './FormItem'
+import Question from './Question'
 
-class FormItemList extends Component {
+class QuestionsList extends Component {
   render() {
-    const { questions, addOption, updateQuestion } = this.props
+    const {
+      questions,
+      updateQuestion,
+      deleteQuestion,
+      addOption,
+      deleteOption
+    } = this.props
 
     return (
       <div>
         {
           questions.map((q, index) => {
             return (
-              <FormItem
+              <Question
                 key={index}
                 question={q}
                 updateQuestion={updateQuestion}
+                deleteQuestion={deleteQuestion}
                 addOption={addOption}
+                deleteOption={deleteOption}
               />
             )
           })
@@ -24,4 +32,4 @@ class FormItemList extends Component {
   }
 }
 
-export default FormItemList
+export default QuestionsList

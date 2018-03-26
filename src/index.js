@@ -4,9 +4,9 @@ import './index.css';
 import App from './App';
 import Forms from './containers/Forms'
 import FormEditor from './containers/FormEditor'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import createHistory from 'history/createBrowserHistory'
-import { ConnectedRouter, push } from 'react-router-redux'
+import { ConnectedRouter } from 'react-router-redux'
 
 import { Provider } from 'react-redux'
 import store from './store'

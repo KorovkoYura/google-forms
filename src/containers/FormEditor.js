@@ -1,15 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addQuestion, updateForm, addOption } from '../actions/formEditor'
-import Header from '../components/Header'
+import { addQuestion, updateQuestion, deleteQuestion, addOption, deleteOption } from '../actions/questions'
+import { updateForm } from '../actions/forms'
+import EditorHeader from '../components/editor/EditorHeader'
 import FormHeader from '../components/editor/FormHeader'
-import FormItemList from '../components/editor/FormItemList'
-
-import { Paper, Button } from 'material-ui'
-import AddIcon from 'material-ui-icons/Add';
-
-import { TextField, IconButton } from 'material-ui'
-import { Save } from 'material-ui-icons'
+import QuestionsList from '../components/editor/QuestionsList'
+import { Paper, Button, Tooltip } from 'material-ui'
+import AddIcon from 'material-ui-icons/Add'
 
 class FormEditor extends Component {
   state = {
@@ -35,69 +32,51 @@ class FormEditor extends Component {
     })
   }
 
-  insertQusetion = question => {
-    
-  }
-
-  updateQuestion = question => {
-    console.log(question)
-    // const questions = this.state.form.questions.slice()
-    // const index = questions.findIndex(q => q.id == question.id)
-    //
-    // questions.splice(index, 1)
-    // questions.splice(index, 0, question)
-
-    // console.log('as', questions)
-    // console.log('questions', this.state.form.questions)
-
-    // this.setState({
-    //   form: {
-    //     ...this.state.form,
-    //     questions
-    //   }
-    // })
-  }
-
   updateForm = form => {
     this.props.updateForm(form)
     this.props.history.push('/forms')
   }
 
-  addQuestion = (form, question) => {
-    this.props.addQuestion(form, question)
+  addQuestion = (formID, question) => {
+    this.props.addQuestion(formID, question)
   }
 
   render() {
-    const { form: { id, title, description, questions } } = this.state
-    console.log(this.state)
+    const { form: { id, title, description } } = this.state
+    const { questions } = this.props
+    const data = questions.filter(q => q.formID === id)
 
     return (
       <div>
-        <Header />
-        <div style={{width: '70%', margin: 'auto', marginTop: 100}}>
-          <IconButton onClick={this.updateForm.bind({}, this.state.form)}>
-            <Save />
-          </IconButton>
+        <EditorHeader
+          onClick={() => this.props.history.push('/forms')}
+          updateForm={this.updateForm}
+          form={this.state.form}
+        />
+      <div style={{width: '70%', margin: '50px auto'}}>
           <Paper style={{padding: '5em', position: 'relative'}}>
 
             <FormHeader
               title={title}
               description={description}
               handleChange={this.handleChange}
-              updateForm={this.updateForm}
             />
 
-            <FormItemList
-              questions={questions}
-              updateQuestion={this.updateQuestion}
+          <QuestionsList
+              questions={data}
+              updateQuestion={this.props.updateQuestion}
+              deleteQuestion={this.props.deleteQuestion}
               addOption={this.props.addOption}
+              deleteOption={this.props.deleteOption}
             />
 
-              <div  style={{marginTop: 50}}>
-                <Button variant="fab" color="primary" aria-label="add" onClick={this.addQuestion.bind({}, this.state.form, {id: Date.now(), type: 'text', title: '', description: '', options: []})}>
-                  <AddIcon />
-                </Button>
-              </div>
+          <div style={{display: 'flex', justifyContent: 'center', marginTop: 50}}>
+            <Tooltip id="tooltip-icon" title="Add">
+              <Button variant="fab" color="primary" aria-label="add" onClick={this.addQuestion.bind({}, id, {id: Date.now(), type: 'text', title: 'Вопрос без заголовка', description: '', options: []})}>
+                <AddIcon />
+              </Button>
+            </Tooltip>
+          </div>
 
           </Paper>
         </div>
@@ -108,20 +87,30 @@ class FormEditor extends Component {
 
 const mapStateToProps = state => {
   return {
-    forms: state.formsReducer
+    forms: state.forms,
+    questions: state.questions
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    addQuestion: (form, question) => {
-      dispatch(addQuestion(form, question))
+    addQuestion: (formID, question) => {
+      dispatch(addQuestion(formID, question))
+    },
+    updateQuestion: question => {
+      dispatch(updateQuestion(question))
+    },
+    deleteQuestion: id => {
+      dispatch(deleteQuestion(id))
     },
     updateForm: form => {
       dispatch(updateForm(form))
     },
-    addOption: option => {
-      dispatch(addOption(option))
+    addOption: ( questionID, option) => {
+      dispatch(addOption(questionID, option))
+    },
+    deleteOption: (questionID, optionID) => {
+      dispatch(deleteOption(questionID, optionID))
     }
   }
 }

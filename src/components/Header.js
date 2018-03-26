@@ -4,7 +4,7 @@ import { AppBar, Toolbar, Typography } from 'material-ui'
 const Header = props => (
   <AppBar position="static">
     <Toolbar>
-      <Typography variant="title" color="inherit">
+      <Typography variant="display1" color="inherit">
         Google Forms
       </Typography>
     </Toolbar>

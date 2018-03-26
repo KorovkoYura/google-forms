@@ -1,12 +1,12 @@
-import { combineReducers } from 'redux';
-import formsReducer from './forms';
-import formEditorReducer from './formEditor';
+import { combineReducers } from 'redux'
+import forms from './formReducer'
+import questions from './questionReducer'
 import { routerReducer } from 'react-router-redux'
 
-const Reducer = combineReducers({
-  formsReducer,
-  formEditorReducer,
+const reducer = combineReducers({
+  forms,
+  questions,
   router: routerReducer
 })
 
-export default Reducer;
+export default reducer

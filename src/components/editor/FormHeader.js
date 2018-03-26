@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { TextField, IconButton } from 'material-ui'
-import { Save } from 'material-ui-icons'
+import { TextField } from 'material-ui'
 
 class FormHeader extends Component {
   render() {
@@ -10,6 +8,7 @@ class FormHeader extends Component {
     return (
       <div className="form-header">
         <TextField
+          style={{fontSize: 25}}
           className="form-title"
           value={title}
           margin="normal"

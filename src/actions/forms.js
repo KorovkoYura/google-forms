@@ -3,10 +3,19 @@ import * as actions from '../constants'
 export const addForm = id => {
   return {
     type: actions.ADD_FORM,
-    id,
-    title: 'New Form',
-    description: '',
-    questions: []
+    payload: {
+      id,
+      title: 'New Form',
+      description: '',
+      questions: []
+    }
+  }
+}
+
+export const updateForm = form => {
+  return {
+    type: actions.UPDATE_FORM,
+    form
   }
 }
 

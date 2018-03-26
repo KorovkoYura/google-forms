@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List'
 import Menu, { MenuItem } from 'material-ui/Menu'
 import { ShortText, ArrowDropDownCircle, RadioButtonChecked } from 'material-ui-icons'
@@ -26,6 +25,11 @@ class FormTypeMenu extends Component {
   state = {
     anchorEl: null,
     selectedIndex: 0,
+  }
+
+  componentWillMount() {
+    const index = options.findIndex(option => option.value === this.props.type)
+    this.setState({selectedIndex: index})
   }
 
   handleClickListItem = event => {
@@ -72,7 +76,8 @@ class FormTypeMenu extends Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          {options.map((option, index) => (
+          {
+            options.map((option, index) => (
             <MenuItem
               key={index}
               selected={index === this.state.selectedIndex}
@@ -87,7 +92,8 @@ class FormTypeMenu extends Component {
                 option.text
               }
             </MenuItem>
-          ))}
+          ))
+        }
         </Menu>
       </div>
     )

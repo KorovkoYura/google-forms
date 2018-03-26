@@ -1,10 +1,9 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { TextField, Input, Tooltip, Button } from 'material-ui'
+import { Input, Tooltip } from 'material-ui'
 import { Close, RadioButtonUnchecked } from 'material-ui-icons'
 
 const List = props => {
-  let { options, addOption, handleOptionChange, deleteOption } = props
+  let { options, handleOptionChange, deleteOption } = props
 
   return (
     <div>
@@ -16,14 +15,14 @@ const List = props => {
                 <Input
                   style={{margin: '0 20px'}}
                   value={option.value}
-                  onChange={handleOptionChange(option.id)}
+                  onChange={event => handleOptionChange(option, event)}
                   fullWidth
                   margin="dense"
                 />
                 {
                   (options.length > 1)
                   ? (<Tooltip id="tooltip-icon" title="Delete">
-                    <Close onClick={ () => deleteOption(option.id)} />
+                    <Close onClick={ () => deleteOption(undefined, option.id)} />
                   </Tooltip>)
                   : ''
                 }
@@ -31,11 +30,6 @@ const List = props => {
             )
           })
         }
-      <Button
-        style={{marginTop: 30}}
-        onClick={addOption}>
-        Добавить вариант
-      </Button>
     </div>
   )
 }
