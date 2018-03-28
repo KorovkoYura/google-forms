@@ -26,11 +26,13 @@ class Forms extends Component {
     return (
       <div>
         <Header />
-        {
-          (this.props.forms.length > 0) ?
-            <FormsList forms={this.props.forms} deleteForm={this.props.deleteForm} />
-            : <Default />
-        }
+        <div className="container">
+          {
+            (this.props.forms.length > 0) ?
+              <FormsList forms={this.props.forms} deleteForm={this.props.deleteForm} />
+              : <Default />
+          }
+        </div>
         <Tooltip title="Create form" placement="top">
           <Button
             variant="fab"
