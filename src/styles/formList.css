@@ -1,7 +1,16 @@
+.form-grid {
+  display: flex;
+  justify-content: space-between;
+}
+
 .form-card{
   cursor: pointer;
   margin-top: 25px;
-  width: 30%;
+  width: 23%;
+}
+
+.form-list .form-card {
+  width: 100%
 }
 
 .form-card:hover {
@@ -11,7 +20,7 @@
 
 @media only screen and (max-width : 992px) {
   .form-card {
-    width: 45%;
+    width: 48%;
   }
 }
 

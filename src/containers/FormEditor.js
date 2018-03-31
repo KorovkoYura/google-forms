@@ -33,7 +33,11 @@ class FormEditor extends Component {
   }
 
   updateForm = form => {
-    this.props.updateForm(form)
+    let updatedForm = {
+      ...form,
+      dateModified: Date.now()
+    }
+    this.props.updateForm(updatedForm)
     this.props.history.push('/forms')
   }
 

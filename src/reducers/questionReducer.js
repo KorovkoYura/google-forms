@@ -59,17 +59,17 @@ const questionReducer = (state = initialState, action) => {
   }
 }
 
+const getQuestion = (state, id) => {
+  let index = state.findIndex(q => q.id === id)
+  return state[index]
+}
+
 const updateQuestion = (state, action) => {
   let index = state.findIndex(f => f.id === action.id)
   let data = state.slice()
   data.splice(index, 1)
   data.splice(index, 0, action)
   return data
-}
-
-const getQuestion = (state, id) => {
-  let index = state.findIndex(q => q.id === id)
-  return state[index]
 }
 
 const removeQuestionsById = (state = [], formID) => {

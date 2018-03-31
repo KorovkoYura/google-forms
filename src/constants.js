@@ -1,4 +1,5 @@
 export const ADD_FORM = "ADD_FORM"
+export const SORT_BY = "SORT_BY"
 export const DELETE_FORM = "DELETE_FORM"
 
 export const ADD_QUESTION = 'ADD_QUESTION'

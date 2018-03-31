@@ -3,7 +3,7 @@ import Header from '../components/Header'
 import FormsList from '../components/FormsList'
 import Default from '../components/Default'
 import { connect } from 'react-redux'
-import { addForm, deleteForm } from '../actions/forms'
+import { addForm, sortBy, deleteForm } from '../actions/forms'
 
 import { Button, Tooltip } from 'material-ui'
 import AddIcon from 'material-ui-icons/Add'
@@ -29,7 +29,11 @@ class Forms extends Component {
         <div className="container">
           {
             (this.props.forms.length > 0) ?
-              <FormsList forms={this.props.forms} deleteForm={this.props.deleteForm} />
+              <FormsList
+                forms={this.props.forms}
+                deleteForm={this.props.deleteForm}
+                sortBy={this.props.sortBy}
+              />
               : <Default />
           }
         </div>
@@ -58,6 +62,9 @@ const mapDispatchToProps = dispatch => {
   return {
      addForm: id => {
       dispatch(addForm(id))
+    },
+    sortBy: value => {
+      dispatch(sortBy(value))
     },
     deleteForm: id => {
       dispatch(deleteForm(id))
